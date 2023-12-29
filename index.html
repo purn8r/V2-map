@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
     crossorigin=""/>
+    <link rel="stylesheet" href="assets/style.css">
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
@@ -43,8 +44,16 @@ html, body {
 
 #map { height: 100%; }
 </style>
-
+<form autocomplete="off">
+    <div class="autocomplete" style="width:300px;">
+      <input id="searchBox" type="text" name="myCountry" placeholder="Country" onchange="onTextChanged()">
+    </div>
+    <input type="button" style="position: absolute; left: 27%; z-index: 402;">
+  </form>
 <div id="map"></div>
+
+<!--Make sure the form has the autocomplete function switched off:-->
+
 
 <script src="index.js"></script>
 
