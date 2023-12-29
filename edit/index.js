@@ -86,7 +86,7 @@ data.forEach(json => {
     //color: color: "#ff0000"
   })
   datasets.push(dataset)
-  layerList = { ...layerList, [json.layerName]: dataset }
+  layerList = { ...layerList, [json.properties.layerName]: dataset }
 
 })
 

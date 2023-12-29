@@ -69,12 +69,12 @@ data.forEach(json => {
         onEachFeature: onEachFeature,
         //color: color: "#ff0000"
     })
-    if (json.hideByDefault) {
+    if (json.properties.hideByDefault) {
         delayedAdd.push(dataset)
     } else {
         datasets.push(dataset)
     }
-    layerList = { ...layerList, [json.layerName]: dataset }
+    layerList = { ...layerList, [json.properties.layerName]: dataset }
 
 })
 
