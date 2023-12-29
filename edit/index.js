@@ -111,7 +111,7 @@ map.pm.addControls({
 });
 
 // Add tile layer
-var t = L.tileLayer('../tiles/{z}/{x}/{y}.png', {
+var t = L.tileLayer('../tiles/{z}/{y}/{x}.png', {
   noWrap: true,
   tileSize: L.point(1021, 865),
   minNativeZoom: 0,
