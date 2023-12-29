@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gray County Map</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon.png">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+    <script src="plugins/Leaflet.LabelTextCollision.js"></script>
+    <script src="plugins/Canvas-TextPath.js"></script>
+    <script src="plugins/Leaflet.streetlabels.js"></script>
+    <script>data=[]</script>
+
+    <!-- every layer needs to be loaded like this in each html file -->
+    <script src="data/roads.js"></script>
+</head>
+  
+<body>
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+}
+.leaflet-container {
+	background: #172e1a;
+	outline-offset: 1px;
+}
+
+#map { height: 100%; }
+</style>
+
+<div id="map"></div>
+
+<script src="index.js"></script>
+
+</body>
+</html> 

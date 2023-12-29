@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GC Data Editor</title>
+    <link rel="icon" type="image/x-icon" href="../assets/icon.png">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <link rel="stylesheet" href="../plugins/leaflet-geoman.css"/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+    <script src="../plugins/Leaflet.geoman.min.js"></script>
+    <script src="../plugins/Leaflet.LabelTextCollision.js"></script>
+    <script src="../plugins/Canvas-TextPath.js"></script>
+    <script src="../plugins/Leaflet.streetlabels.js"></script>
+    <script>data=[]</script>
+
+    <!-- every layer needs to be loaded like this in each html file -->
+    <script src="../data/roads.js"></script>
+</head>
+  
+<body>
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+}
+.leaflet-container {
+	background: #172e1a;
+	outline-offset: 1px;
+}
+#export-container {height: 2.5%; position: absolute; top: 4px; left: 40px;z-index: 400; display: flex;margin-left: 2px;}
+#map { height: 100%; }
+.exporter {
+  font-size: 5px;
+  color:hotpink;
+}
+</style>
+
+<div id="map"></div>
+<div id="export-container">
+  <button id="export-button"onClick="exporter()">Export</button>
+  <button id="clear-export-button"onClick="clearExporter()">Clear</button>
+  <p id="export-text" class="exporter"></p>
+</div>
+<script src="index.js"></script>
+
+</body>
+</html> 
