@@ -42,15 +42,7 @@ var streetLabelsRenderer = new L.StreetLabels({
 
 //   layer.setStyle(defaultStyle);
 // }
-function colorize(layer) {
-    let layerStyle = layer.feature.properties.style
-    if (layerStyle==null || layerStyle==undefined || layerStyle=="Default") {layer.setStyle(Styles.Default)}
-    else if (layerStyle=="Highway"){layer.setStyle(Styles.Highway)}
-    else if (layerStyle=="Major"){layer.setStyle(Styles.Major)}
-    else if (layerStyle=="Minor"){layer.setStyle(Styles.Minor)}
-    else if (layerStyle=="Pedestrian"){layer.setStyle(Styles.Pedestrian)}
-    layer.redraw()
-}
+
 
 function onEachFeature(feature, layer) {
     // do something with the features here (bind popups, etc.)

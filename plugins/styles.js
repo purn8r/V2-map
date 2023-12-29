@@ -81,3 +81,16 @@ Styles.PromPD =  {
     color: '#ada228',
     fillOpacity: .2,
 }
+
+function colorize(layer) {
+    let layerStyle = layer.feature.properties.style
+    if (layerStyle==null || layerStyle==undefined || layerStyle=="Default") {layer.setStyle(Styles.Default)}
+    else if (layerStyle=="Highway"){layer.setStyle(Styles.Highway)}
+    else if (layerStyle=="Major"){layer.setStyle(Styles.Major)}
+    else if (layerStyle=="Minor"){layer.setStyle(Styles.Minor)}
+    else if (layerStyle=="Pedestrian"){layer.setStyle(Styles.Pedestrian)}
+    else if (layerStyle=="ArborPD"){layer.setStyle(Styles.ArborPD)}
+    else if (layerStyle=="RedwoodPD"){layer.setStyle(Styles.RedwoodPD)}
+    else if (layerStyle=="PromPD"){layer.setStyle(Styles.PromPD)}
+    layer.redraw()
+  }
