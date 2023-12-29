@@ -26,7 +26,7 @@ Styles.Highway = {
 
 Styles.Major = {
     weight: 4,
-    color: '#334e91',
+    color: '#2c578f',
     dashArray: '',
     fillOpacity: 1,
     opacity: .5
