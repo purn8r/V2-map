@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GC Development Map</title>
+    <title>FS Type Editor</title>
     <link rel="icon" type="image/x-icon" href="../assets/icon.png">
+    <link rel="stylesheet" href="../assets/style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
     crossorigin=""/>
@@ -13,11 +14,12 @@
     <script src="../plugins/Leaflet.LabelTextCollision.js"></script>
     <script src="../plugins/Canvas-TextPath.js"></script>
     <script src="../plugins/Leaflet.streetlabels.js"></script>
+    <script src="../plugins/styles.js"></script>
     <script>data=[]</script>
 
     <!-- every layer needs to be loaded like this in each html file -->
     <script src="../data/roads.js"></script>
-    <script src="../data/dev.js"></script>
+    
 </head>
   
 <body>
@@ -45,6 +47,24 @@ html, body {
   <button id="export-button"onClick="exporter()">Export</button>
   <button id="clear-export-button"onClick="clearExporter()">Clear</button>
   <p id="export-text" class="exporter"></p>
+</div>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form>
+      <select id="selection" name="style" onchange="changed()">
+        <option value="">-</option>
+        <option value="Default">Default</option>
+        <option value="Minor">Minor</option>
+        <option value="Major">Major</option>
+        <option value="Highway">Highway</option>
+        <option value="Pedestrian">Pedestrian</option>
+      </select>
+    </form>
+  </div>
+
 </div>
 
 

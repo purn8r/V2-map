@@ -1,12 +1,3 @@
-
-const defaultStyle = {
-    weight: 2,
-    color: '#637081',
-    dashArray: '',
-    fillOpacity: 1,
-    opacity: .5
-}
-
 var streetLabelsRenderer = new L.StreetLabels({
     //color : "#ff0000",
     collisionFlg: true,
@@ -51,6 +42,15 @@ var streetLabelsRenderer = new L.StreetLabels({
 
 //   layer.setStyle(defaultStyle);
 // }
+function colorize(layer) {
+    let layerStyle = layer.feature.properties.style
+    if (layerStyle==null || layerStyle==undefined || layerStyle=="Default") {layer.setStyle(Styles.Default)}
+    else if (layerStyle=="Highway"){layer.setStyle(Styles.Highway)}
+    else if (layerStyle=="Major"){layer.setStyle(Styles.Major)}
+    else if (layerStyle=="Minor"){layer.setStyle(Styles.Minor)}
+    else if (layerStyle=="Pedestrian"){layer.setStyle(Styles.Pedestrian)}
+    layer.redraw()
+}
 
 function onEachFeature(feature, layer) {
     // do something with the features here (bind popups, etc.)
@@ -61,7 +61,7 @@ function onEachFeature(feature, layer) {
       fillOpacity: 0,
     })
     */
-    layer.setStyle(defaultStyle)
+    colorize(layer)
 
     // layer.on({
     //   mouseover: highlightFeature,
