@@ -19,6 +19,7 @@
 
     <!-- every layer needs to be loaded like this in each html file -->
     <script src="../data/roads.js"></script>
+    <script src="../data/jds.js"></script>
     
 </head>
   
@@ -56,11 +57,18 @@ html, body {
     <form>
       <select id="selection" name="style" onchange="changed()">
         <option value="">-</option>
-        <option value="Default">Default</option>
-        <option value="Minor">Minor</option>
-        <option value="Major">Major</option>
-        <option value="Highway">Highway</option>
-        <option value="Pedestrian">Pedestrian</option>
+        <optgroup label="Roads">
+          <option value="Default">Default</option>
+          <option value="Minor">Minor</option>
+          <option value="Major">Major</option>
+          <option value="Highway">Highway</option>
+          <option value="Pedestrian">Pedestrian</option>
+        </optgroup>
+        <optgroup label="Cities">
+          <option value="ArborPD">Arborfield</option>
+          <option value="RedwoodPD">Redwood</option>
+          <option value="PromPD">Prominence</option>
+        </optgroup>
       </select>
     </form>
   </div>

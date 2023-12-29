@@ -60,6 +60,9 @@ function colorize(layer) {
   else if (layerStyle=="Major"){layer.setStyle(Styles.Major)}
   else if (layerStyle=="Minor"){layer.setStyle(Styles.Minor)}
   else if (layerStyle=="Pedestrian"){layer.setStyle(Styles.Pedestrian)}
+  else if (layerStyle=="ArborPD"){layer.setStyle(Styles.ArborPD)}
+  else if (layerStyle=="RedwoodPD"){layer.setStyle(Styles.RedwoodPD)}
+  else if (layerStyle=="PromPD"){layer.setStyle(Styles.PromPD)}
   layer.redraw()
 }
 function resetHighlight(e) {

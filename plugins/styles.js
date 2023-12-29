@@ -56,3 +56,28 @@ Styles.Hover = {
     color: '#ff3300'
   
 }
+
+Styles.ArborPD =  {
+    stroke: true,
+    weight: 3,
+    dashArray: '',
+    opacity: 0.7,
+    color: '#2a28ad',
+    fillOpacity: .2,
+}
+Styles.RedwoodPD =  {
+    stroke: true,
+    weight: 3,
+    dashArray: '',
+    opacity: 0.7,
+    color: '#ad2f28',
+    fillOpacity: .2,
+}
+Styles.PromPD =  {
+    stroke: true,
+    weight: 3,
+    dashArray: '',
+    opacity: 0.7,
+    color: '#ada228',
+    fillOpacity: .2,
+}
