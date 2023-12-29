@@ -63,12 +63,17 @@ function onEachFeature(feature, layer) {
 
 let datasets = []
 let layerList = {}
+let delayedAdd = []
 data.forEach(json => {
     var dataset = L.geoJSON(json, {
         onEachFeature: onEachFeature,
         //color: color: "#ff0000"
     })
-    datasets.push(dataset)
+    if (json.hideByDefault) {
+        delayedAdd.push(dataset)
+    } else {
+        datasets.push(dataset)
+    }
     layerList = { ...layerList, [json.layerName]: dataset }
 
 })
@@ -100,3 +105,6 @@ var t = L.tileLayer('tiles/{z}/{y}/{x}.png', {
 }).addTo(map);
 
 L.control.layers({ "Satellite": t /*only 1 can be picked from here, separate with ;*/ }, layerList).addTo(map)
+// delayedAdd.forEach(layer=>{
+//     layer.addTo(map)
+// })
