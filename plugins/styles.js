@@ -32,6 +32,14 @@ Styles.Major = {
     opacity: .5
 }
 
+Styles.Exit = {
+    weight: 4,
+    color: '#09751a',
+    dashArray: '',
+    fillOpacity: 1,
+    opacity: .5
+}
+
 Styles.Minor = {
     weight: 2,
     color: '#637081',
@@ -87,6 +95,7 @@ function colorize(layer) {
     if (layerStyle==null || layerStyle==undefined || layerStyle=="Default") {layer.setStyle(Styles.Default)}
     else if (layerStyle=="Highway"){layer.setStyle(Styles.Highway)}
     else if (layerStyle=="Major"){layer.setStyle(Styles.Major)}
+    else if (layerStyle=="Exit"){layer.setStyle(Styles.Exit)}
     else if (layerStyle=="Minor"){layer.setStyle(Styles.Minor)}
     else if (layerStyle=="Pedestrian"){layer.setStyle(Styles.Pedestrian)}
     else if (layerStyle=="ArborPD"){layer.setStyle(Styles.ArborPD)}
