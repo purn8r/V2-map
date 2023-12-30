@@ -54,7 +54,22 @@ function onEachFeature(feature, layer) {
     })
     */
     colorize(layer)
-    if (feature.properties.layerName == "Roads") {roadsList.push(layer)}
+    // layer.on({
+    //   mouseover: highlightFeature,
+    //   mouseout: resetHighlight,
+    // });
+}
+function onEachFeature2(feature, layer) {
+    // do something with the features here (bind popups, etc.)
+    /*
+    layer.setStyle({
+      weight: 10,
+      color: 'green',
+      fillOpacity: 0,
+    })
+    */
+    colorize(layer)
+    roadsList.push(layer)
     // layer.on({
     //   mouseover: highlightFeature,
     //   mouseout: resetHighlight,
@@ -65,10 +80,19 @@ let datasets = []
 let layerList = {}
 let delayedAdd = []
 data.forEach(json => {
-    var dataset = L.geoJSON(json, {
-        onEachFeature: onEachFeature,
-        //color: color: "#ff0000"
-    })
+    var dataset
+    if (json.properties.layerName == "Roads") {
+        dataset = L.geoJSON(json, {
+            onEachFeature: onEachFeature2,
+            //color: color: "#ff0000"
+        })
+    } else {
+        dataset = L.geoJSON(json, {
+            onEachFeature: onEachFeature,
+            //color: color: "#ff0000"
+        })
+    }
+    
     if (json.properties.hideByDefault) {
         delayedAdd.push(dataset)
     } else {
@@ -224,6 +248,7 @@ function onTextChanged() {
     }
     
 }
+console.log(roadsList)
 
 // console.log(names)
 autocomplete(search, names);

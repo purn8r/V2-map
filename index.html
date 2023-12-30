@@ -20,7 +20,7 @@
     <!-- every layer needs to be loaded like this in each html file -->
     <script src="data/roads.js"></script>
     <script src="data/jds.js"></script>
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2N4RVLCLM"></script>
@@ -46,9 +46,11 @@ html, body {
 </style>
 <form autocomplete="off">
     <div class="autocomplete" style="width:300px;">
-      <input id="searchBox" type="text" name="myCountry" placeholder="Country" onchange="onTextChanged()">
+      <input id="searchBox" type="text" name="myCountry" placeholder="Country">
     </div>
-    <input type="button" style="position: absolute; left: 27%; z-index: 402;">
+    <button style="position: absolute; top:1%; left: 27%; z-index: 402; width: 41px; height: 41px;" onclick="onTextChanged()"><span style="display: flex; align-items: center; justify-content: center;" class="material-symbols-outlined">
+        search
+        </span></button>
   </form>
 <div id="map"></div>
 

@@ -46,7 +46,7 @@ input[type=text], select, textarea {
   resize: vertical;
 }
 
-input[type=submit],input[type=button] {
+input[type=submit],button {
     background-color: #04AA6D;
     color: white;
     padding: 12px 20px;
@@ -56,7 +56,7 @@ input[type=submit],input[type=button] {
     float: right;
   }
   
-input[type=submit],input[type=button]:hover {
+input[type=submit],button:hover {
 background-color: #45a049;
 }
 
@@ -72,6 +72,7 @@ body {
   display: inline-block;
   z-index: 405;
   left: 5%;
+  top: 1%;
 }
 /* input {
   border: 1px solid transparent;
