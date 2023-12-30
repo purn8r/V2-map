@@ -71,8 +71,8 @@ body {
   position: absolute;
   display: inline-block;
   z-index: 405;
-  left: 5%;
-  top: 1%;
+  left: 54px;
+  top: 10px;
 }
 /* input {
   border: 1px solid transparent;
