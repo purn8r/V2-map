@@ -75,6 +75,31 @@ function onEachFeature2(feature, layer) {
     //   mouseout: resetHighlight,
     // });
 }
+let markerIcon = L.Icon.extend({
+    options: {
+        // shadowUrl: 'leaf-shadow.png',
+        iconSize:     [33, 44],
+        shadowSize:   [0, 0],
+        iconAnchor:   [16, 44],
+        shadowAnchor: [0, 0],
+        popupAnchor:  [-3, -76]
+    }
+})
+function makeMarker(name) {return new markerIcon({iconUrl:`assets\\markers\\${name}.png`})}
+
+let builds = []
+function onEachPoint(feature, layer) {
+  let marker = makeMarker(feature.properties.style || "default")
+  marker.interactive = false
+  const lat = feature.geometry.coordinates[1];
+  const lon = feature.geometry.coordinates[0];
+  let realMarker = L.marker([lat, lon], { icon: marker })
+//   realMarker.on('click', onClick)
+  realMarker.feature = feature
+  builds.push(realMarker)
+
+  // marker.getPane().onclick(()=>{console.log("a")})
+}
 
 let datasets = []
 let layerList = {}
@@ -101,6 +126,15 @@ data.forEach(json => {
     layerList = { ...layerList, [json.properties.layerName]: dataset }
 
 })
+
+
+let buildingLayer = L.geoJSON(buildings, { onEachFeature: onEachPoint })
+let buildingLayerGroup = L.layerGroup(builds)
+// buildingLayerGroup.on('mouseover', (e) => { console.log(e) })
+datasets.push(buildingLayerGroup)
+layerList = { ...layerList, ["Buildings"]: buildingLayerGroup }
+
+// buildingLayer.addTo(map)
 
 // Load the dataset
 
@@ -235,7 +269,7 @@ function autocomplete(inp, arr) {
 let names = data[0].features.map(road=>road.properties.name).filter(road=>road!=undefined)
 let search = document.getElementById("searchBox")
 function onTextChanged() {
-    console.log(search.value)
+    // console.log(search.value)
     if(names.includes(search.value)) {
         //find the layer and change its style to highlight
         roadsList.forEach(layer=>{
@@ -248,7 +282,7 @@ function onTextChanged() {
     }
     
 }
-console.log(roadsList)
+// console.log(roadsList)
 
 // console.log(names)
 autocomplete(search, names);

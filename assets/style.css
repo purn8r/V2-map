@@ -15,10 +15,12 @@
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 5% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+    height:80%;
+    margin-bottom:5%;
   }
   
   /* The Close Button */
@@ -58,6 +60,18 @@ input[type=submit],button {
   
 input[type=submit],button:hover {
 background-color: #45a049;
+}
+
+.iconimage {
+  width: 38px;
+  height: 48px;
+  padding: 0;
+  margin:5px
+}
+.iconimage > img {
+  left: 0%;
+  top:0%;
+  position: inherit;
 }
 
 /* search box */

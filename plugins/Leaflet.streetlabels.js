@@ -262,6 +262,8 @@ L.StreetLabels = L.LabelTextCollision.extend({
             ctx.textPath(layerText, pathPoints);
           });
         }
+      } else if (layer instanceof L.Point) {
+        console.log("Point")
       }
     }
   },

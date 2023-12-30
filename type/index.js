@@ -63,22 +63,148 @@ let target = null
 let targetLayer = null
 function onClick(e) {
   modal.style.display = "block";
-  target = e.target 
-  target.redraw()
+  target = e.target
+  // target.redraw()
   // console.log(e.target)
 }
 
-function onEachFeature(feature, layer) {
-  // do something with the features here (bind popups, etc.)
-  /*
-  layer.setStyle({
-    weight: 10,
-    color: 'green',
-    fillOpacity: 0,
-  })
-  */
-  colorize(layer)
+let list = ["accountancy",
+  "arts-crafts",
+  "astrology",
+  "automotive",
+  "bars",
+  "birds",
+  "books-media",
+  "breakfast-n-brunch",
+  "business",
+  "cake-shop",
+  "clothings",
+  "clubs",
+  "coffee-n-tea",
+  "commercial-places",
+  "community",
+  "computers",
+  "concerts",
+  "cookbooks",
+  "dance-clubs",
+  "default",
+  "dental",
+  "doctors",
+  "education",
+  "electronics",
+  "employment",
+  "engineering",
+  "entertainment",
+  "event",
+  "exhibitions",
+  "fashion",
+  "festivals",
+  "financial-services",
+  "food",
+  "furniture-stores",
+  "games",
+  "gifts-flowers",
+  "government",
+  "halloween",
+  "health-medical",
+  "home-services",
+  "hotels",
+  "industries",
+  "internet",
+  "jewelry",
+  "jobs",
+  "karaoke",
+  "law",
+  "lawn-garden",
+  "libraries",
+  "local-services",
+  "lounges",
+  "magazines",
+  "manufacturing",
+  "marker-new1_12",
+  "mass-media",
+  "massage-therapy",
+  "matrimonial",
+  "medical",
+  "meetups",
+  "miscellaneous-for-sale",
+  "mobile-phones",
+  "movies",
+  "museums",
+  "musical-instruments",
+  "musical",
+  "nightlife",
+  "parks",
+  "parties",
+  "pets",
+  "photography",
+  "pizza",
+  "places",
+  "play-schools",
+  "playgrounds",
+  "pool-halls",
+  "printing-graphic-arts",
+  "professional",
+  "real-estate",
+  "religious-organizations",
+  "residential-places",
+  "restaurants",
+  "retail-stores",
+  "saloon",
+  "schools",
+  "science",
+  "shopping",
+  "sporting-goods",
+  "sports",
+  "swimming-pools",
+  "telemarketing",
+  "tickets",
+  "tiffin-services",
+  "tires-accessories",
+  "tools-hardware",
+  "tours",
+  "toys-store",
+  "transport",
+  "travel",
+  "tutors",
+  "vacant-land"]
+let iconDiv = document.getElementById("icons")
+list.forEach(name => {
+  iconDiv.innerHTML = iconDiv.innerHTML + `<option value="${name}">${name}</option>`
+})
 
+
+
+function makeMarker(name) {
+  return new L.Icon(
+    {
+      iconUrl: `..\\assets\\markers\\${name}.png`,
+      iconSize: [33, 44],
+      shadowSize: [0, 0],
+      iconAnchor: [16, 44],
+      shadowAnchor: [0, 0],
+      popupAnchor: [-3, -76]
+    })
+}
+
+let builds = []
+function onEachPoint(feature, layer) {
+  let marker = makeMarker(feature.properties.style || "default")
+  // marker.interactive = true
+  const lat = feature.geometry.coordinates[1];
+  const lon = feature.geometry.coordinates[0];
+  let realMarker = L.marker([lat, lon], { icon: marker })
+  realMarker.on('click', onClick)
+  realMarker.feature = feature
+  builds.push(realMarker)
+
+  // marker.getPane().onclick(()=>{console.log("a")})
+}
+
+
+function onEachFeature(feature, layer) {
+  colorize(layer)
+  // console.log(layer.on)
   layer.on({
     click: onClick,
     mouseover: highlightFeature,
@@ -88,6 +214,13 @@ function onEachFeature(feature, layer) {
 
 let datasets = []
 let layerList = {}
+let buildingLayer = L.geoJSON(buildings, { onEachFeature: onEachPoint })
+let buildingLayerGroup = L.layerGroup(builds)
+buildingLayerGroup.on('mouseover', (e) => { console.log(e) })
+datasets.push(buildingLayerGroup)
+layerList = { ...layerList, ["Buildings"]: buildingLayerGroup }
+
+
 data.forEach(json => {
   var dataset = L.geoJSON(json, {
     onEachFeature: onEachFeature,
@@ -153,21 +286,22 @@ var selection = document.getElementById("selection")
 // modal.style.display = "block";
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+span.onclick = function () {
   modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
 }
 selection.value = ""
-function changed(){
+function changed() {
   target.feature.properties.style = selection.value
-  colorize(target)
-  target.redraw()
+  if (target.options.alt == undefined) {colorize(target)} else {
+    target.setIcon(makeMarker(target.feature.properties.style || "default"))
+  }
   selection.value = ""
   modal.style.display = "none";
 }
