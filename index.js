@@ -78,7 +78,7 @@ function onEachFeature2(feature, layer) {
 let markerIcon = L.Icon.extend({
     options: {
         // shadowUrl: 'leaf-shadow.png',
-        iconSize:     [33, 44],
+        iconSize:     [44, 44],
         shadowSize:   [0, 0],
         iconAnchor:   [16, 44],
         shadowAnchor: [0, 0],
