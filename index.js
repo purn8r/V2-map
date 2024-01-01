@@ -80,7 +80,7 @@ let markerIcon = L.Icon.extend({
         // shadowUrl: 'leaf-shadow.png',
         iconSize:     [44, 44],
         shadowSize:   [0, 0],
-        iconAnchor:   [16, 44],
+        iconAnchor:   [22, 44],
         shadowAnchor: [0, 0],
         popupAnchor:  [-3, -76]
     }
