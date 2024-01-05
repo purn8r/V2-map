@@ -76,6 +76,7 @@ let list = [
 "Capitol",
 "Car",
 "Court",
+"Church",
 "default",
 "DOCM",
 "DOT",
@@ -93,7 +94,7 @@ let list = [
 "Range",
 "Skull",
 "Stadium",
-"text",
+"Shopping",
 "Trash",
 "Poll",
 "View"]
@@ -109,9 +110,9 @@ function makeMarker(name) {
   return new L.Icon(
     {
       iconUrl: `..\\assets\\markers\\${name}.png`,
-      iconSize: [41, 41],
+      iconSize: [44, 44],
       shadowSize: [0, 0],
-      iconAnchor: [16, 41],
+      iconAnchor: [22, 44],
       shadowAnchor: [0, 0],
       popupAnchor: [-3, -76]
     })

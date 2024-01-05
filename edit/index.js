@@ -70,16 +70,17 @@ function onEachFeature(feature, layer) {
     fillOpacity: 0,
   })
   */
-  layer.setStyle(defaultStyle)
+  // layer.setStyle(defaultStyle)
 
   layer.on({
-    mouseover: highlightFeature,
-    mouseout: resetHighlight,
+    // mouseover: highlightFeature,
+    // mouseout: resetHighlight,
   });
 }
 
 let datasets = []
 let layerList = {}
+data.push({...buildings, properties:{layername:"Buildings"}})
 data.forEach(json => {
   var dataset = L.geoJSON(json, {
     onEachFeature: onEachFeature,
