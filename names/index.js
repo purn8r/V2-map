@@ -77,6 +77,13 @@ function onClick(e) {
   layer.redraw()
   // console.log(e.target)
 }
+function onMarkerClick(e) {
+  let newName = prompt("Enter building name", e.target.feature.properties.name || "")
+  e.target.feature.properties.name = newName || ""
+  let layer = e.target
+  // layer.redraw()
+  // console.log(e.target)
+}
 
 function onEachFeature(feature, layer) {
   // do something with the features here (bind popups, etc.)
@@ -101,6 +108,44 @@ function onEachFeature(feature, layer) {
   });
 }
 
+let markerIcon = L.Icon.extend({
+  options: {
+      iconSize:     [44, 44],
+      shadowSize:   [0, 0],
+      iconAnchor:   [22, 44],
+      shadowAnchor: [0, 0],
+      popupAnchor:  [-3, -76]
+  }
+})
+let labelIcon = L.Icon.Label.extend({
+  options: {
+      iconSize:     [44, 44],
+      shadowSize:   [0, 0],
+      // iconAnchor:   [22, 44],
+      shadowAnchor: [0, 0],
+      popupAnchor:  [-3, -76],
+      wrapperAnchor: new L.Point(22,44),
+      iconAnchor:   new L.Point(0,0),
+      labelAnchor:  new L.Point(32,9)
+  }
+})
+function makeMarker(iconName,labelText) {
+  return labelText ? new labelIcon({iconUrl:`..\\assets\\markers\\${iconName}.png`,labelText:labelText}) : new markerIcon({iconUrl:`..\\assets\\markers\\${iconName}.png`})
+}
+
+let builds = []
+function onEachPoint(feature, layer) {
+  let marker = makeMarker(feature.properties.style || "default",feature.properties.name)
+  marker.interactive = false
+  const lat = feature.geometry.coordinates[1];
+  const lon = feature.geometry.coordinates[0];
+  let realMarker = L.marker([lat, lon], { icon: marker })
+  realMarker.feature = feature
+  builds.push(realMarker)
+  realMarker.on({click:onMarkerClick})
+}
+
+
 let datasets = []
 let layerList = {}
 data.forEach(json => {
@@ -112,6 +157,12 @@ data.forEach(json => {
   layerList = { ...layerList, [json.properties.layerName]: dataset }
 
 })
+
+let buildingLayer = L.geoJSON(buildings, { onEachFeature: onEachPoint })
+let buildingLayerGroup = L.layerGroup(builds)
+datasets.push(buildingLayerGroup)
+layerList = { ...layerList, ["Buildings"]: buildingLayerGroup }
+
 
 // Add map, set default view
 var map = L.map('map', {

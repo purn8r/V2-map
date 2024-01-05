@@ -24,26 +24,32 @@ function onEachFeature2(feature, layer) {
     colorize(layer)
     roadsList.push(layer)
 }
-let markerIcon = L.Icon.extend({
+let markerIcon = L.Icon.Label.extend({
     options: {
-        iconSize:     [44, 44],
+        iconSize:     new L.Point(44, 44),
         shadowSize:   [0, 0],
-        iconAnchor:   [22, 44],
+        // iconAnchor:   [22, 44],
         shadowAnchor: [0, 0],
-        popupAnchor:  [-3, -76]
+        popupAnchor:  [-3, -76],
+        wrapperAnchor: new L.Point(22,44),
+        iconAnchor:   new L.Point(0,0),
+        labelAnchor:  new L.Point(32,9)//Actual icon width (excluding whitespace on sides) + padding
     }
 })
-function makeMarker(name) {return new markerIcon({iconUrl:`assets\\markers\\${name}.png`})}
+function makeMarker(iconName,labelText) {return new markerIcon({iconUrl:`assets\\markers\\${iconName}.png`,labelText:labelText})}
 
 let builds = []
+let icons = []
 function onEachPoint(feature, layer) {
-  let marker = makeMarker(feature.properties.style || "default")
+  let marker = makeMarker(feature.properties.style || "default",feature.properties.name)
   marker.interactive = false
   const lat = feature.geometry.coordinates[1];
   const lon = feature.geometry.coordinates[0];
-  let realMarker = L.marker([lat, lon], { icon: marker })
+  let realMarker = new L.Marker.Label([lat, lon], { icon: marker })
+  //L.marker([lat, lon], { icon: marker })
   realMarker.feature = feature
   builds.push(realMarker)
+  icons.push(marker)
 }
 
 let datasets = []
@@ -105,6 +111,22 @@ var t = L.tileLayer('tiles/{z}/{y}/{x}.png', {
 
 L.control.layers({ "Satellite": t /*only 1 can be picked from here, separate with ;*/ }, layerList).addTo(map)
 
+map.on('zoomend',()=>{
+    builds.forEach((marker=>{
+        if (map.getZoom()>=2) {
+            marker._showLabel()
+        } else {
+            marker._hideLabel()
+        }
+    }))
+})
+builds.forEach((marker=>{
+    if (map.getZoom()>=2) {
+        marker._showLabel()
+    } else {
+        marker._hideLabel()
+    }
+}))
 
 //Autocomplete stuffs
 function autocomplete(inp, arr) {
