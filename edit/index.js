@@ -116,7 +116,7 @@ var t = L.tileLayer('../tiles/{z}/{y}/{x}.png', {
   noWrap: true,
   tileSize: L.point(1021, 865),
   minNativeZoom: 0,
-  maxNativeZoom: 3,
+  maxNativeZoom: 0,
   minZoom: -1,
   maxZoom: 5,
   bounds: [[0, 0], [-864, 1020]]

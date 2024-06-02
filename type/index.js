@@ -176,7 +176,7 @@ var t = L.tileLayer('../tiles/{z}/{y}/{x}.png', {
   noWrap: true,
   tileSize: L.point(1021, 865),
   minNativeZoom: 0,
-  maxNativeZoom: 3,
+  maxNativeZoom: 0,
   minZoom: -1,
   maxZoom: 5,
   bounds: [[0, 0], [-864, 1020]],
@@ -229,6 +229,7 @@ window.onclick = function (event) {
 }
 selection.value = ""
 function changed() {
+  if (target.feature.properties == undefined) {target.feature.properties = {}}
   target.feature.properties.style = selection.value
   if (target.options.alt == undefined) {colorize(target)} else {
     target.setIcon(makeMarker(target.feature.properties.style || "default"))

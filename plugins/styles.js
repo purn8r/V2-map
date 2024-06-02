@@ -91,7 +91,9 @@ Styles.PromPD =  {
 }
 
 function colorize(layer) {
-    let layerStyle = layer.feature.properties.style
+
+    let layerStyle = null
+    if (layer.feature.properties != undefined && layer.feature.properties.style != undefined) {layerStyle = layer.feature.properties.style}
     if (layerStyle==null || layerStyle==undefined || layerStyle=="Default") {layer.setStyle(Styles.Default)}
     else if (layerStyle=="Highway"){layer.setStyle(Styles.Highway)}
     else if (layerStyle=="Major"){layer.setStyle(Styles.Major)}
