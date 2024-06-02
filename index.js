@@ -100,11 +100,11 @@ var map = L.map('map', {
 // Add tile layer
 var t = L.tileLayer('tiles/{z}/{y}/{x}.png', {
     noWrap: true,
-    tileSize: L.point(1021, 865),
+    tileSize: L.point(8004, 6403),
     minNativeZoom: 0,
-    maxNativeZoom: 3,
+    maxNativeZoom: 0,
     minZoom: -1,
-    maxZoom: 6,
+    maxZoom: 7,
     bounds: [[0, 0], [-864, 1020]],
     attribution: "purn8r"
 }).addTo(map);
