@@ -7,7 +7,7 @@ var streetLabelsRenderer = new L.StreetLabels({
     },
     fontStyle: {
         dynamicFontSize: false,
-        fontSize: 15, // was 15
+        fontSize: 10, // was 15
         fontSizeUnit: "px",
         lineWidth: 2.0, // was 4.0
         fillStyle: "white",
