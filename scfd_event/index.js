@@ -111,22 +111,22 @@ var t = L.tileLayer('../tiles/{z}/{y}/{x}.png', {
 
 L.control.layers({ "Satellite": t /*only 1 can be picked from here, separate with ;*/ }, layerList).addTo(map)
 
-map.on('zoomend',()=>{
-    builds.forEach((marker=>{
-        if (map.getZoom()>=1) {
-            marker._showLabel()
-        } else {
-            marker._hideLabel()
-        }
-    }))
-})
-builds.forEach((marker=>{
-    if (map.getZoom()>=1) {
-        marker._showLabel()
-    } else {
-        marker._hideLabel()
-    }
-}))
+// map.on('zoomend',()=>{
+//     builds.forEach((marker=>{
+//         if (map.getZoom()>=1) {
+//             marker._showLabel()
+//         } else {
+//             marker._hideLabel()
+//         }
+//     }))
+// })
+// builds.forEach((marker=>{
+//     if (map.getZoom()>=1) {
+//         marker._showLabel()
+//     } else {
+//         marker._hideLabel()
+//     }
+// }))
 
 //Autocomplete stuffs
 function autocomplete(inp, arr) {
