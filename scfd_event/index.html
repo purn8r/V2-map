@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firestone Map</title>
+    <link rel="icon" type="image/x-icon" href="../assets/icon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <link rel="stylesheet" href="../assets/style.css">
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+    <link rel="stylesheet" href="../plugins/leaflet.iconlabel.css">
+    <script src="../plugins/Leaflet.LabelTextCollision.js"></script>
+    <script src="../plugins/Canvas-TextPath.js"></script>
+    <script src="../plugins/Leaflet.streetlabels.js"></script>
+    <script src="../plugins/leaflet.iconlabel.js"></script>
+    <script src="../plugins/styles.js"></script>
+    <script>data=[]</script>
+
+    <!-- every layer needs to be loaded like this in each html file -->
+    <script src="../data/roads.js"></script>
+    <!-- <script src="../data/jds.js"></script> -->
+    <script src="../data/fdbuildings.js"></script>
+    <!-- <script src="../data/waterways.js"></script> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <meta name="description" content="A map of Stapleton County V2.">
+    <meta property="og:image" content="https://github.com/purn8r/V2-map/blob/main/tiles/0/0/0.png?raw=true">
+    <meta content="#8A0000" data-react-helmet="true" name="theme-color" />
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F2N4RVLCLM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-F2N4RVLCLM');
+</script>
+<body>
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+}
+.leaflet-container {
+	background: #46604a;
+	outline-offset: 1px;
+}
+
+#map { height: 100%; }
+</style>
+<div id="map"></div>
+
+<!--Make sure the form has the autocomplete function switched off:-->
+
+
+<script src="index.js"></script>
+
+</body>
+</html> 
