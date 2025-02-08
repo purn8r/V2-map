@@ -174,13 +174,12 @@ var map = L.map('map', {
 // Add tile layer
 var t = L.tileLayer('../tiles/{z}/{y}/{x}.png', {
   noWrap: true,
-  tileSize: L.point(1021, 865),
-  minNativeZoom: 0,
-  maxNativeZoom: 0,
+  tileSize: L.point(4096, 4096),
+  minNativeZoom: 4,
+  maxNativeZoom: 4,
   minZoom: -1,
   maxZoom: 5,
-  bounds: [[0, 0], [-864, 1020]],
-  attribution: "purn8r"
+  bounds: [[0, 0], [-1010, 2020]]
 }).addTo(map);
 
 L.control.layers({ "Satellite": t /*only 1 can be picked from here, separate with ;*/ }, layerList).addTo(map)
