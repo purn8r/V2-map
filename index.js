@@ -83,50 +83,118 @@ datasets.push(buildingLayerGroup)
 layerList = { ...layerList, ["Buildings"]: buildingLayerGroup }
 
 
-// Load the dataset
+// Configuration constants
+const TILE_CONFIG = {
+    tileSize: 4096,
+    minNativeZoom: 0,
+    maxNativeZoom: 100,
+    minZoom: 0,
+    maxZoom: 100,
+    bounds: [[0, 0], [-1010, 1200]],
+    updateWhenIdle: true,
+    updateInterval: 500,
+    reuseTiles: true,
+    keepBuffer: 2,
+    maxTiles: 10,
+    tileRetryInterval: 2000,
+    tileRetryLimit: 3,
+    errorTileUrl: 'assets/error.png',
+    crossOrigin: 'anonymous',
+};
 
 
-
-
-// Add map, set default view
-var map = L.map('map', {
+const map = L.map('map', {
     crs: L.CRS.Simple,
-    minZoom: -1,
-    center: [0, 0],
+    center: [-500, 250],
+    zoom: 1,
+    fadeAnimation: false,
     renderer: streetLabelsRenderer,
     layers: datasets,
-}).setView([-300, 500], 0);
+    maxBounds: [[-1010, 0], [0, 1200]], 
+    maxBoundsViscosity: 1.0, 
+    zoomAnimation: !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+});
 
-const scaler = 8.836363636363636
-// Add tile layer
-var t = L.tileLayer('tiles/{z}/{y}/{x}.png', {
-    noWrap: true,
-    tileSize: L.point(4096, 4096),
-    minNativeZoom: 4,
-    maxNativeZoom: 4,
-    minZoom: -1,
-    maxZoom: 5,
-    bounds: [[0, 0], [-1010, 2020]]
-}).addTo(map);
+const tileLayer = L.tileLayer('tiles/{z}/{y}/{x}.png', TILE_CONFIG)
+    .on('tileerror', handleTileError)
+    .on('tileloadstart', handleTileLoadStart)
+    .addTo(map);
 
-L.control.layers({ "Satellite": t /*only 1 can be picked from here, separate with ;*/ }, layerList).addTo(map)
+// Layer management
+const layers = {
+    Roads: createRoadLayer(),
+    Buildings: createBuildingLayer(),
 
-map.on('zoomend',()=>{
-    builds.forEach((marker=>{
-        if (map.getZoom()>=2) {
-            marker._showLabel()
-        } else {
-            marker._hideLabel()
+};
+
+// Initialize layer control
+L.control.layers({ "Satellite": tileLayer }, layerList).addTo(map);
+
+// Road layer configuration
+function createRoadLayer() {
+    const roads = [];
+    return L.geoJSON(data.find(json => json.properties.layerName === "Roads"), {
+        onEachFeature: (feature, layer) => {
+            colorize(layer);
+            roads.push(layer);
         }
-    }))
-})
-builds.forEach((marker=>{
-    if (map.getZoom()>=2) {
-        marker._showLabel()
-    } else {
-        marker._hideLabel()
+    });
+}
+
+// Building layer configuration
+function createBuildingLayer() {
+    const buildings = [];
+    const markerIcon = L.Icon.Label.extend({
+        options: {
+            iconSize: new L.Point(44, 44),
+            shadowSize: [0, 0],
+            popupAnchor: [-3, -76],
+            wrapperAnchor: new L.Point(22, 44),
+            iconAnchor: new L.Point(0, 0),
+            labelAnchor: new L.Point(32, 9)
+        }
+    });
+
+    function createMarker(iconName, labelText) {
+        return new markerIcon({
+            iconUrl: `assets/markers/${iconName}.png`,
+            labelText: labelText
+        });
     }
-}))
+
+    return L.geoJSON(buildings, {
+        onEachFeature: (feature, layer) => {
+            const marker = createMarker(feature.properties.style || "default", feature.properties.name);
+            marker.interactive = false;
+            const [lon, lat] = feature.geometry.coordinates;
+            const realMarker = new L.Marker.Label([lat, lon], { icon: marker });
+            realMarker.feature = feature;
+            buildings.push(realMarker);
+        }
+    });
+}
+
+// Error handling
+function handleTileError(error) {
+    console.warn('Tile loading error:', error);
+    error.tile.src = TILE_CONFIG.errorTileUrl;
+}
+
+function handleTileLoadStart(event) {
+    setTimeout(() => {
+        if (!event.tile.complete) {
+            event.tile.src = TILE_CONFIG.errorTileUrl;
+            tileLayer._tileLoaded();
+        }
+    }, 5000);
+}
+
+
+
+
+
+// Handle memory warnings
+map.on('unload', () => window.location.reload());
 
 //Autocomplete stuffs
 function autocomplete(inp, arr) {
