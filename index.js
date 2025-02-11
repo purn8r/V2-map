@@ -86,8 +86,8 @@ layerList = { ...layerList, ["Buildings"]: buildingLayerGroup }
 // Configuration constants
 const TILE_CONFIG = {
     tileSize: 4096,
-    minNativeZoom: 4,
-    maxNativeZoom: 4,
+    minNativeZoom: 0,
+    maxNativeZoom: 100,
     minZoom: 0,
     maxZoom: 100,
     bounds: [[0, 0], [-1010, 1200]],
